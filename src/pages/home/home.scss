@@ -1,0 +1,95 @@
+
+
+.home {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255,198,1);
+  background: linear-gradient(151deg, rgba(255,198,1,1) 0%, rgba(233,129,4,1) 84%);
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    height: 80%;
+    width: 68%;
+    background-color: #2C2C2C;
+    
+    
+    border-radius: 25px;
+  }
+  &__left {
+    padding: 30px;
+    height: 100%;
+    width: 40%;
+  }
+  &__right {
+    display: flex;
+    justify-content: center;
+    padding-top: 10%;
+    height: 100%;
+    width: 60%;
+    background-color: #fff;
+    border-radius: 25px;
+    background-color: #1E1E1E;
+
+    &_divider {
+      display: block;
+      width: 120px;
+      height: 3px;
+      background-color: #fff;
+      margin-bottom: 30px;
+    }
+    &_wrapper {
+      z-index: 3;
+      
+      // height: 500px;
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      // background-color: #212124;
+      // border-radius: 25px;
+      h2 {
+        font-size: 30px;
+        margin-bottom: 10px;
+        
+      }
+      form {
+        input {
+          height: 40px;
+          width: 100%;
+          margin-bottom: 30px;
+          background-color:rgba(21,21,21,0);
+          border: none;
+          border-bottom: 3px solid #fff;
+          color: #fff;
+        }
+        input:focus {
+          outline: none;
+        }
+        input::placeholder {
+          color: #fff;
+        }
+        button {
+          margin-top: 10px;
+          height: 40px;
+          
+        }
+      }
+    }
+  }
+  &__icons  {
+    height: 63%;
+    position: absolute;
+    top: 33%;
+    left: 4%;
+  }
+  &__logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    &-logo {
+      font-size: 35px;
+    }
+  }
+}

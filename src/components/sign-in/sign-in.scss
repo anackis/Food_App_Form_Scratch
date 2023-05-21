@@ -1,0 +1,13 @@
+
+
+.sign-in {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  margin-bottom: 30px;
+  .sign-in__link {
+    color: #6F66F0;
+    text-decoration: none;
+  }
+}
