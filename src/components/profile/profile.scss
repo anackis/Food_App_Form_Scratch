@@ -1,0 +1,21 @@
+
+
+
+.profile {
+  height: 100%;
+  padding: 50px 50px;
+  background-color: #1E1E1E;
+  border: solid 2px #2A2A2A;
+  border-radius: 25px;
+  .title {
+    // text-align: center;
+    font-size: 36px;
+  }
+  .small-divider {
+    // margin: 0 auto;
+    height: 3px;
+    width: 150px;
+    margin-top: 10px;
+    background-color: #fff;
+  }
+}

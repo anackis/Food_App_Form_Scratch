@@ -26,7 +26,7 @@
   &__right {
     display: flex;
     justify-content: center;
-    padding-top: 10%;
+    align-items: center;
     height: 100%;
     width: 60%;
     background-color: #fff;
@@ -79,9 +79,9 @@
     }
   }
   &__icons  {
-    height: 63%;
+    height: 53%;
     position: absolute;
-    top: 33%;
+    top: 42%;
     left: 4%;
   }
   &__logo {

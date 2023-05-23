@@ -9,6 +9,7 @@ import {
   createUserDocumentFromAuth, 
   createAuthUserWithEmailAndPassword
 } from "../../utils/firebase/firebase";
+import userImg from "../../assets/Img/icons/user-icon.png";
 import "./sign-up.scss";
 
 
@@ -41,7 +42,7 @@ const SignUp = () => {
       try {
 
         const { user } = await createAuthUserWithEmailAndPassword(email, password);
-        await createUserDocumentFromAuth(user, { displayName });
+        await createUserDocumentFromAuth(user, { displayName, kcal: "", userImg: userImg});
         // console.log("User created successfully!");
         navigate('/main');
       } catch (error) {

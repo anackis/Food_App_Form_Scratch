@@ -1,6 +1,39 @@
 
-
-
 .main {
-  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  padding: 50px 70px;
+  
+  background: rgb(255,198,1);
+  background: linear-gradient(151deg, rgba(255,198,1,1) 0%, rgba(233,129,4,1) 84%);
+  &__container {
+    height: 100%;
+    position: relative;
+    max-width: 1540px;
+    margin: 0 auto;
+    display: flex;
+    background: rgb(44,44,44);
+    // background: linear-gradient(151deg, rgba(44,44,44,1) 0%, rgba(30,30,30,1) 84%);
+    border-radius: 25px;
+  }
+  &__wrapper {
+    
+    
+    min-width: 1260px;
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__wrapper_top {
+    display: flex;
+    justify-content: space-around;
+  }
+  &__content {
+    width: 57%;
+  }
+  &__content_right {
+    width: 38%;
+  }
 }

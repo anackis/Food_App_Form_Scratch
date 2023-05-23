@@ -1,0 +1,142 @@
+.calculating {
+  height: 100%;
+  padding: 20px 0;
+  background-color: #1E1E1E;
+  border: solid 2px #2A2A2A;
+  border-radius: 25px;
+  input {
+    color: #000;
+  }
+  input::placeholder {
+    color: #000;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    outline: 0;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+  .small-divider {
+    margin: 0 auto;
+    height: 3px;
+    width: 150px;
+    margin-top: 10px;
+    background-color: #fff;
+  }
+  .title {
+    text-align: center;
+    font-size: 36px;
+  }
+  &__field {
+    width: 100%;
+    padding: 30px 0 40px 0;
+  }
+  &__subtitle {
+    text-align: center;
+    font-size: 23px;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+  &__subtitle:first-child {
+    margin-top: 0;
+  }
+  .calculating #gender:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 16px;
+    height: 16px;
+    // background: url(../icons/switch.svg) center center/cover no-repeat;
+  }
+  &__choose {
+    padding: 15px;
+    margin: 0 auto;
+    width: 420px;
+    // height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 15px;
+    background-color: #2C2C2C;
+    border-radius: 8px;
+  }
+  &__choose-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: 50px;
+    padding: 0 10px;
+    background: #fff;
+    color: #000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    outline: 0;
+    transition: 0.3s all;
+    border-radius: 5px;
+  }
+  &__choose-item_active {
+    color: #000;
+    background-color: #F8B002;
+  }
+  &__choose_medium {
+    width: 630px;
+    margin: 15px auto 0px auto;
+  }
+  &__choose_big {
+    width: 930px;
+    margin: 15px auto 0 auto;
+  }
+  &__choose_big &__choose-item {
+    width: 200px;
+  }
+  &__divider {
+    width: 490px;
+    height: 3px;
+    margin: 30px auto;
+    background-color: #fff;
+  }
+  &__total {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      margin-top: 0;
+    }
+  }
+  
+  &__result {
+    width: 220px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  &__result span {
+    font-size: 42px;
+  }
+  &__error {
+    position: absolute;
+    top: 88%;
+    left: 36%;
+    margin: 0 auto;
+    color: red;
+    font-size: 22px;
+  }
+
+}
