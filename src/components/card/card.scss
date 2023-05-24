@@ -1,0 +1,103 @@
+
+
+
+.card {
+  width: 400px;
+  height: 700px;
+  background-color: #1E1E1E;
+  
+  
+  padding: 20px;
+  border-radius: 25px;
+  &__wrapper {
+    position: relative;
+    height: 100%;
+    // background-color: #2C2C2C;
+  }
+  &__name {
+    padding-left: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background-color: #2C2C2C;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+  &__img {
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    height: 200px;
+    width: 100%;
+    background-color: #2C2C2C;
+    margin-bottom: 10px;
+    img {
+      border-radius: 20px;
+      display: block;
+      height: 100%;
+      margin: 0 auto;
+    }
+  }
+  &__creator {
+    background-color: #2C2C2C;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+  &__social {
+    display: flex;
+    background-color: #2C2C2C;
+    border-radius: 10px;
+    padding: 7px;
+    margin-bottom: 10px;
+    button {
+      height: 45px;
+      width: 45px;
+      background-color: rgba(1, 1, 1, 0.0);
+      border-radius: 100%;
+      border: none;
+      img {
+        height: 90%;
+      }
+    }
+  }
+  &__components {
+    background-color: #2C2C2C;
+    border-radius: 10px;
+    padding: 15px;
+    max-height: 36%;
+    overflow-y: auto;
+    &_component_stats {
+      display: flex;
+      justify-content: space-between;
+      p {
+        width: 40%;
+      }
+    }
+  }
+  &__totals {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    height: 70px;
+    width: 100%;
+    background-color: #2C2C2C;
+    bottom: 0px;
+    border-radius: 10px;
+    h3 {
+      margin-bottom: 10px;
+    }
+    &_wrapper {
+      display: flex;
+      justify-content: space-between;
+      &-item {
+        width: 40%;
+      }
+    }
+  }
+}

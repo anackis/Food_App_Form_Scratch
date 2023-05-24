@@ -13,6 +13,7 @@ import {
 import NavBar from "../../components/nav-bar/nav-bar";
 import Dashboard from "../../components/dashboard/dashboard";
 import Profile from "../../components/profile/profile";
+import Recipe from "../../components/recipe/recipe";
 import Calculator from "../../components/calculator/calculator";
 import Coming from "../../components/coming/coming";
 
@@ -85,7 +86,7 @@ const Main = () => {
   let activeComponent;
   if (activeLink === 'Dashboard') {
     activeComponent = <Dashboard/>
-  } else if (activeLink === 'Profile') {
+  } else if (activeLink === 'Profile') { 
     activeComponent = 
     <Profile 
       userDataDB = {userDataDB}
@@ -95,20 +96,20 @@ const Main = () => {
     />;
   } else if (activeLink === 'Calculator') {
     activeComponent = <Calculator />;
+  }else if (activeLink === 'Recipe') {
+    activeComponent = <Recipe />;
   } else if (activeLink !== 'Dashboard') {
     activeComponent = <Coming />;
   } 
 
 
+
   return (
     <section className="main">
       <div className="main__container">
-      
         <NavBar handleNavItemClick={handleNavItemClick} activeLink={activeLink}/>
         <div className="main__wrapper">
-          
           {activeComponent}
-        
         </div>
       </div>
     </section>

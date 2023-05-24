@@ -14,6 +14,10 @@
     display: block ;
     margin: 0 auto;
   }
+  &__logo-wrapper {
+    display: flex;
+    align-items: center;
+  }
   &__logo {
     display: flex;
     align-items: center;

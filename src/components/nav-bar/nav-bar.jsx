@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import SignOut from '../sign-out/sign-out';
 
+import logoImg from "../../assets/Img/icons/logo.png";
+
 import "./nav-bar.scss";
 
 const NavBar = ({activeLink, handleNavItemClick }) => {
@@ -36,7 +38,7 @@ const NavBar = ({activeLink, handleNavItemClick }) => {
   const navItems = [
     { name: 'Dashboard'},
     { name: 'Profile' },
-    { name: 'Recepte'},
+    { name: 'Recipe'},
     { name: 'Calculator' },
     { name: 'Accounts' },
     { divider: true },
@@ -47,11 +49,15 @@ const NavBar = ({activeLink, handleNavItemClick }) => {
   return (
     <section className="navbar">
       <div className="navbar__logo navbar__logo_mobile">
+        <img src={logoImg} alt="logo-img" />
         <span className="navbar__logo-logo">Food App</span>
       </div>
       <button className='hamburger' />
       <div className="navbar__wrapper">
-        <div className="navbar__logo">
+        <div className="navbar__logo-wrapper">
+          <img src={logoImg} alt="logo-img" />
+          <div className="navbar__logo">
+        </div>
           <span className="navbar__logo-logo">Food App</span>
         </div>
         <div className="navbar__nav">

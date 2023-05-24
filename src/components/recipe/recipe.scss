@@ -1,0 +1,44 @@
+
+
+
+.recipe {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  h1 {
+    font-size: 28px;
+  }
+  input {
+    background-color: hsla(0,0%,8%,0);
+    border: none;
+    border-bottom: 3px solid #fff;
+    color: #fff;
+    height: 40px;
+    margin-bottom: 30px;
+    width: 100%;
+  }
+  &__fileupload {
+    width: 155px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  &__img-input {
+    border-bottom: unset !important;
+    display: none;
+  }
+  &__wrapper {
+    width: 50%;
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 25px
+  }
+  &__divider {
+    display: block;
+    margin: 10px 0 30px 0;
+    height: 3px;
+    width: 125px;
+    background-color: #fff;
+  }
+}
