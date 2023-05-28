@@ -2,11 +2,15 @@
 
 
 .recipe {
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: space-around;
   h1 {
     font-size: 28px;
+  }
+  h2 {
+    margin-bottom: 10px;
   }
   input {
     background-color: hsla(0,0%,8%,0);
@@ -14,8 +18,8 @@
     border-bottom: 3px solid #fff;
     color: #fff;
     height: 40px;
-    margin-bottom: 30px;
-    width: 100%;
+    margin-bottom: 14px;
+    width: 50%;
   }
   &__fileupload {
     width: 155px;
@@ -29,10 +33,22 @@
     display: none;
   }
   &__wrapper {
+    position: relative;
+    // height: 100%;
     width: 50%;
     background-color: #1E1E1E;
     padding: 20px;
     border-radius: 25px
+  }
+  &__wrapper_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    height: 65px;
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    margin-bottom: 15px;
   }
   &__divider {
     display: block;
@@ -40,5 +56,58 @@
     height: 3px;
     width: 125px;
     background-color: #fff;
+  }
+  &__components__wrapper {
+    max-height: 445px;
+    overflow-y: auto;
+  }
+  &__components__wrapper-item {
+    padding: 20px;
+    height: 150px;
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    margin-bottom: 15px;
+  }
+  &__components__wrapper-item_top {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__components__wrapper-item_bottom {
+    display: flex;
+    justify-content: space-between;
+    input {
+      width: 30%;
+    }
+  }
+  &__components-button {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    border: none;
+    background-color:rgba(1, 1, 1, 0.0);
+    cursor: pointer;
+    img {
+      height: 100%;
+    }
+  }
+  &__submit-button {
+    height: 50px;
+    width: 90%;
+    border-radius: 10px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    background-color: #F8B002;
+    color: #fff;
+  }
+  &__wrapper_right-top {
+    height: 85px;
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 25px;
+    margin-bottom: 20px;
   }
 }

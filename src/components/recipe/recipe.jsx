@@ -1,16 +1,21 @@
-import React, { useState, useRef } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
+import { addObjectToCollection } from '../../utils/firebase/firebase';
 
 import Card from '../card/card';
 
 import uploadImg from "../../assets/Img/recipe/photo.png";
+import addButton from "../../assets/Img/recipe/add.png";
+import removeButton from "../../assets/Img/recipe/remove.png";
 
 import './recipe.scss';
 
-const Recipe = () => {
-  const [cardObject, setCardObject] = useState({});
-  const imageInputRef = useRef(null);
-
+const Recipe = ({userDataDB}) => {
+  
   const [formData, setFormData] = useState({
+    userName: userDataDB.displayName,
+    userEmail: userDataDB.email,
+    userImg: userDataDB.userImg,
     name: '',
     image: null,
     component: {
@@ -21,21 +26,27 @@ const Recipe = () => {
     },
     components: [],
   });
+  const [cardObject, setCardObject] = useState(formData);
+  const imageInputRef = useRef(null);
+
+  
 
   const updateCardObject = (updatedData) => {
-    const { name, image, components } = updatedData;
+    const { name, components } = updatedData;
   
     const totalPrice = calculateTotalPrice(components);
     const totalKcal = calculateTotalKcal(components);
     const totalWeight = calculateTotalWeight(components);
   
     const updatedCardObject = {
+      userName: userDataDB.displayName,
+      userEmail: userDataDB.email,
+      userImg: userDataDB.userImg,
       name: name,
       image: formData.image,
       likes: cardObject.likes,
       dislikes: cardObject.dislikes,
       favorite: cardObject.favorite,
-      creator: cardObject.creator,
       components: components,
       totalPrice,
       totalKcal,
@@ -44,6 +55,7 @@ const Recipe = () => {
   
     setCardObject(updatedCardObject);
   };
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -58,45 +70,49 @@ const Recipe = () => {
 
   const handleImgUploadChange = (event) => {
     const file = event.target.files[0];
-    // const imageUrl = URL.createObjectURL(file);
-    
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      image: file, 
-    }));
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageDataUrl = e.target.result;
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          image: imageDataUrl,
+        }));
+        updateCardObject({ ...formData, image: imageDataUrl });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-    updateCardObject({ ...formData, image: file });
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const { name, image, component, components } = formData;
+    const { name, components } = formData;
 
     const totalPrice = calculateTotalPrice(components);
     const totalKcal = calculateTotalKcal(components);
     const totalWeight = calculateTotalWeight(components);
 
     const newCardObject = {
+      userName: userDataDB.displayName,
+      userEmail: userDataDB.email,
+      userImg: userDataDB.userImg,
       name: name,
       image: formData.image,
       likes: 0,
       dislikes: 0,
       favorite: false,
-      creator: getCurrentUserDisplayName(),
       components: components,
       totalPrice,
       totalKcal,
       totalWeight,
     };
     setCardObject(newCardObject);
+    addObjectToCollection("cards", newCardObject);
     console.log(newCardObject);
   };
 
-  const getCurrentUserDisplayName = () => {
-    // Replace with your own logic
-    return 'John Doe';
-  };
 
   const addComponent = () => {
     const { component, components } = formData;
@@ -151,6 +167,7 @@ const Recipe = () => {
       return total + Number(component.componentPricePerG) * Number(component.componentWeight);
     }, 0);
   };
+  
 
   return (
     <section className='recipe'>
@@ -158,157 +175,157 @@ const Recipe = () => {
         <h1>Create Recipe Card</h1>
         <div className="recipe__divider"></div>
         <form onSubmit={handleSubmit}>
-          {/* <label htmlFor="name">Name:</label> */}
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder='Name'
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-
-          <br />
-
-          <label htmlFor="image" className="recipe__fileupload">
-            
-            <img src={uploadImg} alt="uploadImg" />
-            Upload Image
+          
+          <div className="recipe__wrapper_top">
+            {/* <label htmlFor="name">Name:</label> */}
             <input
-                type="file"
-                id="image"
-                className='recipe__img-input'
-                name="image"
-                // value={formData.image}
-                ref={imageInputRef}
-                onChange={handleImgUploadChange}
-                accept="image/*"
-                required
-              />
-          </label>
-          
-            
-            
-          
-          
+              type="text"
+              id="name"
+              name="name"
+              placeholder='Name'
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
 
-          {/* {formData.image && (
-            <img src={URL.createObjectURL(formData.image)} alt="Preview" style={{ width: '200px' }} />
-          )}
-          {cardObject.image && (
-            <img src={URL.createObjectURL(cardObject.image)} alt="Preview" style={{ width: '200px' }} />
-          )} */}
+            
+
+            <label htmlFor="image" className="recipe__fileupload">
+              <img src={uploadImg} alt="uploadImg" />
+              Upload Image
+              <input
+                  type="file"
+                  id="image"
+                  className='recipe__img-input'
+                  name="image"
+                  // value={formData.image}
+                  ref={imageInputRef}
+                  onChange={handleImgUploadChange}
+                  accept="image/*"
+                  required
+                />
+            </label>
+          </div>
+          
 
           <h2>Components:</h2>
+          <div className="recipe__components__wrapper">
           {formData.components.map((component, index) => (
-            <div key={index}>
+            <div className="recipe__components__wrapper-item" key={index}>
               {/* <label htmlFor={`componentName${index}`}>Component Name:</label> */}
-              <input
-                type="text"
-                id={`componentName${index}`}
-                name={`componentName${index}`}
-                placeholder='Component Name'
-                value={component.componentName}
-                onChange={(event) => {
-                  const updatedComponents = [...formData.components];
-                  updatedComponents[index].componentName = event.target.value;
-                  setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    components: updatedComponents,
-                  }));
-                  updateCardObject({ ...formData, components: updatedComponents });
-                }}
-                required
-              />
 
-              <br />
+              <div className="recipe__components__wrapper-item_top">
+               
 
-              {/* <label htmlFor={`componentKcalPerG${index}`}>Component Kcal Per Gram:</label> */}
-              <input
-                type="number"
-                id={`componentKcalPerG${index}`}
-                name={`componentKcalPerG${index}`}
-                placeholder='Kcal/g'
-                value={component.componentKcalPerG}
-                onChange={(event) => {
-                  const updatedComponents = [...formData.components];
-                  updatedComponents[index].componentKcalPerG = event.target.value;
-                  setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    components: updatedComponents,
-                  }));
-                  updateCardObject({ ...formData, components: updatedComponents });
-                }}
-                required
-              />
+                <input
+                  type="text"
+                  id={`componentName${index}`}
+                  name={`componentName${index}`}
+                  placeholder='Component Name'
+                  value={component.componentName}
+                  onChange={(event) => {
+                    const updatedComponents = [...formData.components];
+                    updatedComponents[index].componentName = event.target.value;
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      components: updatedComponents,
+                    }));
+                    updateCardObject({ ...formData, components: updatedComponents });
+                  }}
+                  required
+                />
 
-              <br />
+                <button className='recipe__components-button' type="button" onClick={() => removeComponent(index)}>
+                  <img src={removeButton} alt="removeButton" />
+                </button>
+              </div>
 
-              {/* <label htmlFor={`componentPricePerG${index}`}>Component Price Per Gram:</label> */}
-              <input
-                type="number"
-                id={`componentPricePerG${index}`}
-                name={`componentPricePerG${index}`}
-                placeholder='Price/g'
-                value={component.componentPricePerG}
-                onChange={(event) => {
-                  const updatedComponents = [...formData.components];
-                  updatedComponents[index].componentPricePerG = event.target.value;
-                  setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    components: updatedComponents,
-                  }));
-                  updateCardObject({ ...formData, components: updatedComponents });
-                }}
-                required
-              />
+              
+              <div className="recipe__components__wrapper-item_bottom">
+                {/* <label htmlFor={`componentKcalPerG${index}`}>Component Kcal Per Gram:</label> */}
+                <input
+                  type="number"
+                  id={`componentKcalPerG${index}`}
+                  name={`componentKcalPerG${index}`}
+                  placeholder='Kcal/g'
+                  value={component.componentKcalPerG}
+                  onChange={(event) => {
+                    const updatedComponents = [...formData.components];
+                    updatedComponents[index].componentKcalPerG = event.target.value;
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      components: updatedComponents,
+                    }));
+                    updateCardObject({ ...formData, components: updatedComponents });
+                  }}
+                  required
+                />
 
-              <br />
+                {/* <label htmlFor={`componentWeight${index}`}>Component Weight:</label> */}
+                <input
+                  type="number"
+                  id={`componentWeight${index}`}
+                  name={`componentWeight${index}`}
+                  placeholder='Weigh in g'
+                  value={component.componentWeight}
+                  onChange={(event) => {
+                    const updatedComponents = [...formData.components];
+                    updatedComponents[index].componentWeight = event.target.value;
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      components: updatedComponents,
+                    }));
+                    updateCardObject({ ...formData, components: updatedComponents });
+                  }}
+                  required
+                />
 
-              {/* <label htmlFor={`componentWeight${index}`}>Component Weight:</label> */}
-              <input
-                type="number"
-                id={`componentWeight${index}`}
-                name={`componentWeight${index}`}
-                placeholder='Weigh in g'
-                value={component.componentWeight}
-                onChange={(event) => {
-                  const updatedComponents = [...formData.components];
-                  updatedComponents[index].componentWeight = event.target.value;
-                  setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    components: updatedComponents,
-                  }));
-                  updateCardObject({ ...formData, components: updatedComponents });
-                }}
-                required
-              />
+                {/* <label htmlFor={`componentPricePerG${index}`}>Component Price Per Gram:</label> */}
+                <input
+                  type="number"
+                  id={`componentPricePerG${index}`}
+                  name={`componentPricePerG${index}`}
+                  placeholder='Price/g'
+                  value={component.componentPricePerG}
+                  onChange={(event) => {
+                    const updatedComponents = [...formData.components];
+                    updatedComponents[index].componentPricePerG = event.target.value;
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      components: updatedComponents,
+                    }));
+                    updateCardObject({ ...formData, components: updatedComponents });
+                  }}
+                  required
+                />
 
-              <br />
+              </div>
 
-              <button type="button" onClick={() => removeComponent(index)}>
-                Remove Component
-              </button>
-
-              <br />
-              <br />
-              <br />
+              
             </div>
           ))}
+          </div>
 
-          <button type="button" onClick={addComponent}>
-            Add Component
+          <button className='recipe__components-button' type="button" onClick={addComponent}>
+            <img src={addButton} alt="addButton" />
           </button>
 
           <br />
           <br />
 
-          <button type="submit">Add Recipe Card</button>
+          <button className='recipe__submit-button' type="submit">Add Recipe Card</button>
         </form>
       </div>
       
-      <Card cardObject={cardObject} formDataImg={formData.image}/>
+      <div className="recipe__wrapper_right">
+        <div className="recipe__wrapper_right-top">
+          <h2>Overview</h2>
+          <div className="recipe__divider"></div>
+        </div>
+      
+        <Card userDataDB={userDataDB} cardObject={cardObject} formDataImg={formData.image}/>
+      </div>
+      
     </section>
   );
 };

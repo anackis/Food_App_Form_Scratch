@@ -97,7 +97,7 @@ const Main = () => {
   } else if (activeLink === 'Calculator') {
     activeComponent = <Calculator />;
   }else if (activeLink === 'Recipe') {
-    activeComponent = <Recipe />;
+    activeComponent = <Recipe userDataDB = {userDataDB}/>;
   } else if (activeLink !== 'Dashboard') {
     activeComponent = <Coming />;
   } 

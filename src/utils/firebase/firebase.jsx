@@ -9,12 +9,11 @@ import {
   setDoc,
   updateDoc,
   collection, 
-  getDocs
+  getDocs,
+  addDoc
 } from "firebase/firestore";
 
 import { firebaseConfig } from "./firebaseConfig";
-
-
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -59,12 +58,42 @@ export const getDb = async (uid) => {
   }
 }
 
+export const getCardsDb = async () => {
+  const querySnapshot = await getDocs(collection(db, "cards"));
+  const cards = [];
+
+  querySnapshot.forEach((doc) => {
+    if (doc.exists()) {
+      const card = doc.data();
+      cards.push(card);
+    }
+  });
+
+  return cards;
+};
+
 
 export const updateDb = async (uid, update) => {
   const docRef = doc(db, "users", uid);
   await updateDoc(docRef, update);
 }
 
+
+export const addObjectToCollection = async (collectionName, objectData) => {
+  try {
+    const collectionRef = collection(db, collectionName);
+
+    const collectionSnapshot = await getDocs(collectionRef);
+    if (collectionSnapshot.size === 0) {
+      await setDoc(collectionRef, {});
+    }
+
+    const docRef = await addDoc(collectionRef, objectData);
+    console.log("Object added to collection successfully!", docRef.id);
+  } catch (error) {
+    console.error("Error adding object to collection: ", error);
+  }
+};
 
 export const getAllUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));

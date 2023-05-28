@@ -41,10 +41,8 @@ const Profile = ({userDataDB, uploadImg, handleNavItemClick, activeLink}) => {
 
   return (
     // <section className="profile">
-
     //   <h2 className="title">Profile</h2>
     //   <div className="small-divider"></div>
-
     // </section>
 
     <div className="user-block">
