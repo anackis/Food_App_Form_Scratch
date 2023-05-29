@@ -4,6 +4,7 @@ import { addObjectToCollection } from '../../utils/firebase/firebase';
 
 import Card from '../card/card';
 
+import logo from "../../assets/Img/icons/logo.png";
 import uploadImg from "../../assets/Img/recipe/photo.png";
 import addButton from "../../assets/Img/recipe/add.png";
 import removeButton from "../../assets/Img/recipe/remove.png";
@@ -16,8 +17,9 @@ const Recipe = ({userDataDB}) => {
     userName: userDataDB.displayName,
     userEmail: userDataDB.email,
     userImg: userDataDB.userImg,
+    firebaseId: '',
     name: '',
-    image: null,
+    image: logo,
     component: {
       componentName: '',
       componentKcalPerG: '',
@@ -39,13 +41,17 @@ const Recipe = ({userDataDB}) => {
     const totalWeight = calculateTotalWeight(components);
   
     const updatedCardObject = {
-      userName: userDataDB.displayName,
+      id: userDataDB.id,
+      displayName: userDataDB.displayName,
       userEmail: userDataDB.email,
       userImg: userDataDB.userImg,
+      firebaseId: '',
       name: name,
       image: formData.image,
       likes: cardObject.likes,
+      likesList: [],
       dislikes: cardObject.dislikes,
+      dislikesList: [],
       favorite: cardObject.favorite,
       components: components,
       totalPrice,
@@ -84,6 +90,10 @@ const Recipe = ({userDataDB}) => {
     }
   };
 
+  
+
+  // console.log(formData);
+  console.log(cardObject);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -95,13 +105,17 @@ const Recipe = ({userDataDB}) => {
     const totalWeight = calculateTotalWeight(components);
 
     const newCardObject = {
+      id: userDataDB.id,
       userName: userDataDB.displayName,
       userEmail: userDataDB.email,
       userImg: userDataDB.userImg,
       name: name,
+      firebaseId: '',
       image: formData.image,
       likes: 0,
+      likesList: [],
       dislikes: 0,
+      dislikesList: [],
       favorite: false,
       components: components,
       totalPrice,
@@ -202,7 +216,6 @@ const Recipe = ({userDataDB}) => {
                   ref={imageInputRef}
                   onChange={handleImgUploadChange}
                   accept="image/*"
-                  required
                 />
             </label>
           </div>
@@ -323,7 +336,7 @@ const Recipe = ({userDataDB}) => {
           <div className="recipe__divider"></div>
         </div>
       
-        <Card userDataDB={userDataDB} cardObject={cardObject} formDataImg={formData.image}/>
+        <Card cardObject={cardObject} />
       </div>
       
     </section>

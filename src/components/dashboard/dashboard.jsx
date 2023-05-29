@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { getCardsDb } from '../../utils/firebase/firebase';
 
-import Card from '../card/card';
+import CardMini from '../card-mini/card-mini';
 
 import './dashboard.scss';
 
@@ -19,22 +19,29 @@ const Dashboard = () => {
     fetchCards();
   }, []);
 
-  // console.log(cards);
+  const updateCardData = (cardId, updatedData) => {
+    const updatedCards = cards.map((card) => {
+      if (card.id === cardId) {
+        return {
+          ...card,
+          ...updatedData
+        };
+      }
+      return card;
+    });
+    setCards(updatedCards);
+  };
 
 
   return (
-    <>
+    <section className="dashboard">
       Hello Dashboard
-      {cards.map((card, i) => (
-      <div key={i}>
-        {/* Render card information */}
-        {/* <h2>{card.name}</h2>
-        <p>{card.userName}</p> */}
-        {/* Add more card fields as needed */}
-        {/* <Card card={card}/> */}
+      <div className="dashboard__wrapper">
+        {cards.map((card, i) => (
+          <CardMini key={i} cardObject={card} updateCardData={updateCardData}/>
+        ))}
       </div>
-    ))}
-    </>
+    </section>
   );
 };
 

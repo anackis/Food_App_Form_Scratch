@@ -4,14 +4,14 @@
   justify-content: center;
   align-items: center;
   height: 100vh; 
-  padding: 50px 70px;
+  padding: 10px 70px;
   
   background: rgb(255,198,1);
   background: linear-gradient(151deg, rgba(255,198,1,1) 0%, rgba(233,129,4,1) 84%);
   &__container {
     height: 100%;
     position: relative;
-    max-width: 1540px;
+    max-width: 1840px;
     margin: 0 auto;
     display: flex;
     background: rgb(44,44,44);
@@ -21,7 +21,7 @@
   &__wrapper {
     
     
-    min-width: 1260px;
+    min-width: 1460px;
     padding: 30px 30px;
     display: flex;
     flex-direction: column;

@@ -1,0 +1,14 @@
+
+
+
+.dashboard {
+  height: 100%;
+  &__wrapper {
+    height: 95%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow-y: auto;
+  }
+}
+

@@ -3,6 +3,7 @@ import React from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate} from 'react-router-dom';
+import { getAllUsers } from "../../utils/firebase/firebase";
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { 
   db, 
@@ -29,6 +30,15 @@ const SignUp = () => {
       .min(6, 'Password must be at least 6 characters'),
   });
 
+  function generateUniqueId() {
+    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let id = '';
+    for (let i = 0; i < 4; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      id += characters.charAt(randomIndex);
+    }
+    return id;
+  }
 
 
   const formik = useFormik({
@@ -40,9 +50,16 @@ const SignUp = () => {
     validationSchema: validationSchema,
     onSubmit: async ({ displayName, email, password }) => {
       try {
+        let id;
+        let userExists = true;
+        while (userExists) {
+          id = generateUniqueId();
+          const users = await getAllUsers();
+          userExists = users.some(user => user.id === id);
+        }
 
         const { user } = await createAuthUserWithEmailAndPassword(email, password);
-        await createUserDocumentFromAuth(user, { displayName, kcal: "", userImg: userImg});
+        await createUserDocumentFromAuth(user, {id, displayName, kcal: "", userImg: userImg});
         // console.log("User created successfully!");
         navigate('/main');
       } catch (error) {

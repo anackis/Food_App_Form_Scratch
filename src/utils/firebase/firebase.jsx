@@ -79,6 +79,21 @@ export const updateDb = async (uid, update) => {
 }
 
 
+// export const addObjectToCollection = async (collectionName, objectData) => {
+//   try {
+//     const collectionRef = collection(db, collectionName);
+
+//     const collectionSnapshot = await getDocs(collectionRef);
+//     if (collectionSnapshot.size === 0) {
+//       await setDoc(collectionRef, {});
+//     }
+
+//     const docRef = await addDoc(collectionRef, objectData);
+//     console.log("Object added to collection successfully!", docRef.id);
+//   } catch (error) {
+//     console.error("Error adding object to collection: ", error);
+//   }
+// };
 export const addObjectToCollection = async (collectionName, objectData) => {
   try {
     const collectionRef = collection(db, collectionName);
@@ -89,6 +104,9 @@ export const addObjectToCollection = async (collectionName, objectData) => {
     }
 
     const docRef = await addDoc(collectionRef, objectData);
+    
+    await updateDoc(docRef, { firebaseId: docRef.id });
+    
     console.log("Object added to collection successfully!", docRef.id);
   } catch (error) {
     console.error("Error adding object to collection: ", error);
@@ -105,3 +123,30 @@ export const getAllUsers = async () => {
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   return await createUserWithEmailAndPassword(auth, email, password);
 }
+
+
+
+export const updateCardLikes = async (cardId, likes) => {
+  const cardRef = doc(db, "cards", cardId);
+
+  try {
+    await updateDoc(cardRef, { likes });
+    console.log("Card likes updated successfully!");
+  } catch (error) {
+    console.error("Error updating card likes: ", error);
+  }
+};
+
+export const updateCardDislikes = async (cardId, dislikes) => {
+  const cardRef = doc(db, "cards", cardId);
+
+  try {
+    await updateDoc(cardRef, { dislikes });
+    console.log("Card likes updated successfully!");
+  } catch (error) {
+    console.error("Error updating card likes: ", error);
+  }
+};
+
+
+

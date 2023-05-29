@@ -85,7 +85,7 @@ const Main = () => {
 
   let activeComponent;
   if (activeLink === 'Dashboard') {
-    activeComponent = <Dashboard/>
+    activeComponent = <Dashboard />
   } else if (activeLink === 'Profile') { 
     activeComponent = 
     <Profile 
@@ -97,7 +97,7 @@ const Main = () => {
   } else if (activeLink === 'Calculator') {
     activeComponent = <Calculator />;
   }else if (activeLink === 'Recipe') {
-    activeComponent = <Recipe userDataDB = {userDataDB}/>;
+    activeComponent = <Recipe userDataDB={userDataDB} />;
   } else if (activeLink !== 'Dashboard') {
     activeComponent = <Coming />;
   } 
