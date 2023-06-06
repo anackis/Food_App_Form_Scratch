@@ -3,6 +3,7 @@
 import { useNavigate} from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase";
+import logout from "../../assets/Img/icons/logout.png";
 
 // import logOut from "../../assets/img/icons/log-out.png";
 
@@ -24,7 +25,9 @@ const SignOut = () => {
 
     return (    
       <div className="sign-out">
-        <button onClick={handleSubmit}>Log Out</button>
+        <button onClick={handleSubmit}>
+          <img src={logout} alt="logout" />
+        </button>
       </div>
       
     );

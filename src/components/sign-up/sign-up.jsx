@@ -6,7 +6,6 @@ import { useNavigate} from 'react-router-dom';
 import { getAllUsers } from "../../utils/firebase/firebase";
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { 
-  db, 
   createUserDocumentFromAuth, 
   createAuthUserWithEmailAndPassword
 } from "../../utils/firebase/firebase";
@@ -32,13 +31,13 @@ const SignUp = () => {
 
   function generateUniqueId() {
     const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let id = '';
+    let id = '#';
     for (let i = 0; i < 4; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      id += characters.charAt(randomIndex);
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        id += characters.charAt(randomIndex);
     }
     return id;
-  }
+}
 
 
   const formik = useFormik({
@@ -59,7 +58,21 @@ const SignUp = () => {
         }
 
         const { user } = await createAuthUserWithEmailAndPassword(email, password);
-        await createUserDocumentFromAuth(user, {id, displayName, kcal: "", userImg: userImg});
+        await createUserDocumentFromAuth(user, {
+          id, 
+          displayName, 
+          kcal: "", 
+          userImg: userImg,
+          diet: [
+            {day: "Monday", meals: []},
+            {day: "Tuesday", meals: []},
+            {day: "Wednesday", meals: []},
+            {day: "Thursday", meals: []},
+            {day: "Friday", meals: []},
+            {day: "Saturday", meals: []},
+            {day: "Sunday", meals: []}
+          ]
+        });
         // console.log("User created successfully!");
         navigate('/main');
       } catch (error) {

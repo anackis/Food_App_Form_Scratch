@@ -1,0 +1,60 @@
+
+
+
+.helpcenter {
+  display: flex;
+  align-items: center;
+  position: relative;
+  &__wrapper {
+    height: 450px;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    background-color: #1E1E1E;
+    border-radius: 25px;
+    padding: 30px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  textarea {
+    margin-top: 20px;
+    padding: 15px;
+    height: 65%;
+    width: 100%;
+    border-radius: 20px;
+    color: #000;
+    resize: none;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+      border-color: initial;
+    } 
+  }
+  button {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 57px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s;
+    &:hover {
+      background-color: #F8B002;
+      color: #fff;
+    }
+  }
+  &__message {
+    position: absolute;
+    bottom: 20px;
+  }
+  &__text {
+    background-color: #2C2C2C;
+  }
+}

@@ -2,15 +2,16 @@
   display: flex;
   justify-content: center;
   position: relative;
-  width: 500px;
+  width: 250px;
   background-color: #1e1e1e;
-  border-radius: 25px;
+  border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   color: #fff;
   user-select: none;
   &__wrapper {
     position: fixed;
-    max-width: 280px;
-    padding: 40px 30px;
+    width: 250px;
+    padding: 40px 20px;
     display: block ;
     margin: 0 auto;
   }

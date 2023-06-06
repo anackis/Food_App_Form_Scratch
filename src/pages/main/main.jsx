@@ -2,11 +2,10 @@
 import { useState, useEffect, useCallback  } from "react";
 import { auth, getDb, updateDb, db } from "../../utils/firebase/firebase";
 
+
 import {
   collection,
-  where,
-  query,
-  getDocs, 
+  doc,
   onSnapshot
 } from 'firebase/firestore';
 
@@ -15,6 +14,8 @@ import Dashboard from "../../components/dashboard/dashboard";
 import Profile from "../../components/profile/profile";
 import Recipe from "../../components/recipe/recipe";
 import Calculator from "../../components/calculator/calculator";
+import Plan from "../../components/plan/plan";
+import HelpCenter from "../../components/helpcenter/helpcenter";
 import Coming from "../../components/coming/coming";
 
 import './main.scss';
@@ -34,15 +35,18 @@ const Main = () => {
   useEffect(() => {
     const unsubscribeCheck = auth.onAuthStateChanged(user => {
       if (user) {
-        const unsubscribeUsers = getAllUsersRealTime(); 
+        const unsubscribeUsers = getAllUsersRealTime();
         setUserUid(user.uid);
-        getDb(user.uid)
-          .then((response) => setUserDataDB(response))
-          .catch((error) => console.error('Error fetching data:', error));
-        
+  
+        const userDocRef = doc(db, 'users', user.uid);
+        const unsubscribeUserData = onSnapshot(userDocRef, (snapshot) => {
+          setUserDataDB(snapshot.data());
+        });
+  
         return () => {
           unsubscribeCheck();
           unsubscribeUsers();
+          unsubscribeUserData();
         };
       } else {
         // console.log(" User is signed out");
@@ -85,7 +89,7 @@ const Main = () => {
 
   let activeComponent;
   if (activeLink === 'Dashboard') {
-    activeComponent = <Dashboard />
+    activeComponent = <Dashboard userDataDB = {userDataDB}/>
   } else if (activeLink === 'Profile') { 
     activeComponent = 
     <Profile 
@@ -98,7 +102,11 @@ const Main = () => {
     activeComponent = <Calculator />;
   }else if (activeLink === 'Recipe') {
     activeComponent = <Recipe userDataDB={userDataDB} />;
-  } else if (activeLink !== 'Dashboard') {
+  } else if (activeLink === 'Food Plan') {
+    activeComponent = <Plan userDataDB={userDataDB}/>;
+  } else if (activeLink === 'Help Center') {
+    activeComponent = <HelpCenter/>;
+  }else if (activeLink !== 'Dashboard') {
     activeComponent = <Coming />;
   } 
 

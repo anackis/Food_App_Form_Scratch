@@ -1,6 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { addObjectToCollection } from '../../utils/firebase/firebase';
+import imageCompression from 'browser-image-compression';
 
 import Card from '../card/card';
 
@@ -49,9 +50,10 @@ const Recipe = ({userDataDB}) => {
       name: name,
       image: formData.image,
       likes: cardObject.likes,
-      likesList: [],
+      likedList: [],
       dislikes: cardObject.dislikes,
-      dislikesList: [],
+      dislikedList: [],
+      fovoriteList: [],
       favorite: cardObject.favorite,
       components: components,
       totalPrice,
@@ -74,26 +76,32 @@ const Recipe = ({userDataDB}) => {
     updateCardObject({ ...formData, [name]: value });
   };
 
-  const handleImgUploadChange = (event) => {
+  const handleImgUploadChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const imageDataUrl = e.target.result;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          image: imageDataUrl,
-        }));
-        updateCardObject({ ...formData, image: imageDataUrl });
+      const options = {
+        maxSizeMB: 0.001, // (max file size in MB)
+        maxWidthOrHeight: 1920, // max width or height in pixels
+        useWebWorker: true,
       };
-      reader.readAsDataURL(file);
+      try {
+        const compressedFile = await imageCompression(file, options);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imageDataUrl = e.target.result;
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            image: imageDataUrl,
+          }));
+          updateCardObject({ ...formData, image: imageDataUrl });
+        };
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
-  
-
-  // console.log(formData);
-  console.log(cardObject);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -104,6 +112,8 @@ const Recipe = ({userDataDB}) => {
     const totalKcal = calculateTotalKcal(components);
     const totalWeight = calculateTotalWeight(components);
 
+    const date = new Date();
+
     const newCardObject = {
       id: userDataDB.id,
       userName: userDataDB.displayName,
@@ -113,14 +123,16 @@ const Recipe = ({userDataDB}) => {
       firebaseId: '',
       image: formData.image,
       likes: 0,
-      likesList: [],
+      likedList: [],
       dislikes: 0,
-      dislikesList: [],
+      dislikedList: [],
+      fovoriteList: [],
       favorite: false,
       components: components,
       totalPrice,
       totalKcal,
       totalWeight,
+      createdAt: date,
     };
     setCardObject(newCardObject);
     addObjectToCollection("cards", newCardObject);
@@ -191,7 +203,6 @@ const Recipe = ({userDataDB}) => {
         <form onSubmit={handleSubmit}>
           
           <div className="recipe__wrapper_top">
-            {/* <label htmlFor="name">Name:</label> */}
             <input
               type="text"
               id="name"
@@ -202,8 +213,6 @@ const Recipe = ({userDataDB}) => {
               required
             />
 
-            
-
             <label htmlFor="image" className="recipe__fileupload">
               <img src={uploadImg} alt="uploadImg" />
               Upload Image
@@ -212,7 +221,6 @@ const Recipe = ({userDataDB}) => {
                   id="image"
                   className='recipe__img-input'
                   name="image"
-                  // value={formData.image}
                   ref={imageInputRef}
                   onChange={handleImgUploadChange}
                   accept="image/*"
@@ -225,11 +233,8 @@ const Recipe = ({userDataDB}) => {
           <div className="recipe__components__wrapper">
           {formData.components.map((component, index) => (
             <div className="recipe__components__wrapper-item" key={index}>
-              {/* <label htmlFor={`componentName${index}`}>Component Name:</label> */}
-
               <div className="recipe__components__wrapper-item_top">
                
-
                 <input
                   type="text"
                   id={`componentName${index}`}
@@ -255,7 +260,6 @@ const Recipe = ({userDataDB}) => {
 
               
               <div className="recipe__components__wrapper-item_bottom">
-                {/* <label htmlFor={`componentKcalPerG${index}`}>Component Kcal Per Gram:</label> */}
                 <input
                   type="number"
                   id={`componentKcalPerG${index}`}
@@ -274,7 +278,6 @@ const Recipe = ({userDataDB}) => {
                   required
                 />
 
-                {/* <label htmlFor={`componentWeight${index}`}>Component Weight:</label> */}
                 <input
                   type="number"
                   id={`componentWeight${index}`}
@@ -293,7 +296,6 @@ const Recipe = ({userDataDB}) => {
                   required
                 />
 
-                {/* <label htmlFor={`componentPricePerG${index}`}>Component Price Per Gram:</label> */}
                 <input
                   type="number"
                   id={`componentPricePerG${index}`}
@@ -311,10 +313,7 @@ const Recipe = ({userDataDB}) => {
                   }}
                   required
                 />
-
               </div>
-
-              
             </div>
           ))}
           </div>

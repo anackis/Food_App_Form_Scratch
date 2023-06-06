@@ -18,13 +18,10 @@ const NavBar = ({activeLink, handleNavItemClick }) => {
       }
     }
 
-    // Add event listener for the resize event
     window.addEventListener('resize', handleResize);
 
-    // Initial check when the component mounts
     handleResize();
 
-    // Clean up the event listener when the component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -37,13 +34,12 @@ const NavBar = ({activeLink, handleNavItemClick }) => {
 
   const navItems = [
     { name: 'Dashboard'},
+    { name: 'Food Plan' },
     { name: 'Profile' },
     { name: 'Recipe'},
     { name: 'Calculator' },
-    { name: 'Accounts' },
     { divider: true },
-    { name: 'Settings' },
-    { name: 'Help Centre' },
+    { name: 'Help Center' },
   ];
 
   return (

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { auth, updateDb } from '../../utils/firebase/firebase';
 
 import './calculator.scss';
 
@@ -59,6 +60,16 @@ const Calculator = () => {
       setResult(Math.round((447.6 + 9.2 * weight + 3.1 * height - 4.3 * age) * ratio));
     } else {
       setResult(Math.round((88.36 + 13.4 * weight + 4.8 * height - 5.7 * age) * ratio));
+    }
+  };
+
+  const saveKcal = async () => {
+    if(result !== '-') {
+      const uid = auth.currentUser.uid;
+      await updateDb(uid, { kcal: result });
+    } else {
+      // setError('You need to calculate the kcal first!');
+      console.log('You need to calculate the kcal first!');
     }
   };
 
@@ -179,7 +190,7 @@ const Calculator = () => {
             <div className="calculating__subtitle">Your daily calorie rate:</div>
             <div className="calculating__result"><span>{result} kcal</span></div>
             
-            <button className="calculating__save">Save your daily kcal</button>
+            <button className="calculating__save" onClick={saveKcal}>Save your daily kcal</button>
           </div>
         </div>
       </section>

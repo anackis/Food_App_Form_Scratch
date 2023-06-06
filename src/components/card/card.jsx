@@ -10,8 +10,6 @@ import './card.scss';
 
 const Card = (props) => {
   const { cardObject } = props;
-
-  // console.log(cardObject);
   
 
   return (
@@ -25,7 +23,7 @@ const Card = (props) => {
           {cardObject.userImg ? <img src={cardObject.userImg} alt="userImg" /> : null}
           
           <h3>{cardObject.displayName ? cardObject.displayName : "Creator"}</h3>
-          <h3>#{cardObject.id ? cardObject.id : ""}</h3>
+          <h3>{cardObject.id ? cardObject.id : ""}</h3>
           
         </div>
         <div className="card__social">

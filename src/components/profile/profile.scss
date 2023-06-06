@@ -1,21 +1,88 @@
 
 
 
-.profile {
+.user-block {
   height: 100%;
-  padding: 50px 50px;
+  padding: 30px 30px;
   background-color: #1E1E1E;
-  border: solid 2px #2A2A2A;
   border-radius: 25px;
-  .title {
+  h1 {
     // text-align: center;
     font-size: 36px;
+    font-size: 28px;
   }
   .small-divider {
-    // margin: 0 auto;
     height: 3px;
     width: 150px;
     margin-top: 10px;
+    margin-bottom: 10px;
     background-color: #fff;
+  }
+  &__user-icon {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    margin-right: 20px;
+  }
+  &__user-icon-change {
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+  }
+  &__img-and-name {
+    display: flex;
+    width: 40%;
+    align-items: flex-end;
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    
+    input {
+      display: none;
+    }
+    
+  }
+  &__wrapper {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  &__wrapper-elem {
+    width: 30%;
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    margin-left: 20px;
+    font-size: 18px;
+    line-height: 22px;
+    h3 {
+      margin-bottom: 10px;
+    }
+  }
+  &__kcal-block {
+    display: flex;
+    button {
+      margin-left: 15px;
+      background-color: #FDC002;
+      border: none;
+      padding: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+  &__dashboard  {
+    background-color: #2C2C2C;
+    padding: 10px;
+    border-radius: 20px;
+  }
+  .dashboard__navbar {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .sign-out {
+    position: absolute;
+    top: 20px;
+    right: 15px;
   }
 }

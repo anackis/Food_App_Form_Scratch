@@ -1,0 +1,44 @@
+import React, { useState } from 'react';
+import './helpcenter.scss';
+
+const HelpCenter = () => {
+  const [message, setMessage] = useState('');
+  const [isMessageSent, setIsMessageSent] = useState(false);
+
+  const handleMessageChange = (e) => {
+    setIsMessageSent(false);
+    setMessage(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    console.log('Message:', message);
+    setIsMessageSent(true);
+    setMessage('');
+  };
+
+  return (
+    <section className='helpcenter'>
+      <div className="helpcenter__wrapper">
+
+        <span>Contact us if you have any questions or problems</span>
+        <textarea
+          className='helpcenter__textarea' // Changed class name to differentiate from the input field
+          value={message}
+          onChange={handleMessageChange}
+          placeholder="Type your message"
+        ></textarea> {/* Replaced the input field with a textarea element */}
+
+        <button onClick={handleSendMessage}>Send a message</button>
+
+        {isMessageSent && (
+          <div className='helpcenter__message'>
+            We will contact you soon!
+          </div>
+        )}
+
+      </div>
+    </section>
+  );
+};
+
+export default HelpCenter;
