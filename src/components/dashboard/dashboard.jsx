@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { getCardsDb } from '../../utils/firebase/firebase';
 import CardMini from '../card-mini/card-mini';
-import './dashboard.scss';
 import { updateLikesDislikes, getCardById, updateFavorites } from '../../utils/firebase/firebase';
 import { deleteCardFromDb } from '../../utils/firebase/firebase';
 
+import './dashboard.scss';
 
 
 const Dashboard = ({userDataDB, context, activeDay, placement}) => {

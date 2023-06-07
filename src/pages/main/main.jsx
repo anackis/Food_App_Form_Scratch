@@ -29,7 +29,7 @@ const Main = () => {
   });
   const [userUid, setUserUid] = useState("");
   const [userDataDB, setUserDataDB] = useState({});
-  const [allUsersInfo, setAllUsersInfo] = useState([]); 
+  // const [allUsersInfo, setAllUsersInfo] = useState([]); 
   
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const Main = () => {
           id: doc.id,
         });
       });
-      setAllUsersInfo(usersData);
+      // setAllUsersInfo(usersData);
     });
   
     return unsubscribe; 
@@ -109,7 +109,6 @@ const Main = () => {
   }else if (activeLink !== 'Dashboard') {
     activeComponent = <Coming />;
   } 
-
 
 
   return (

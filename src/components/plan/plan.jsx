@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import CardMini from '../card-mini/card-mini';
 import Dashboard from '../dashboard/dashboard';
-import { db, getCardsDb } from '../../utils/firebase/firebase';
+import { db } from '../../utils/firebase/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 
@@ -15,7 +15,7 @@ const Plan = ({userDataDB}) => {
   const { diet } = userDataDB;
   
   const [activeDay, setActiveDay] = useState('Monday');
-  const [cards, setCards] = useState([]);
+  // const [cards, setCards] = useState([]);
 
   const [totalCaloriesOnDay, setTotalCaloriesOnDay] = useState({
     "Monday": 0,
@@ -32,15 +32,15 @@ const Plan = ({userDataDB}) => {
   };
  
 
-  useEffect(() => {
-    const fetchCards = async () => {
-      const retrievedCards = await getCardsDb();
-      retrievedCards.sort((a, b) => b.createdAt - a.createdAt);
-      setCards(retrievedCards);
-    };
+  // useEffect(() => {
+  //   const fetchCards = async () => {
+  //     const retrievedCards = await getCardsDb();
+  //     retrievedCards.sort((a, b) => b.createdAt - a.createdAt);
+  //     setCards(retrievedCards);
+  //   };
   
-    fetchCards();
-  }, []);
+  //   fetchCards();
+  // }, []);
 
 
   useEffect(() => {

@@ -22,11 +22,11 @@ const HelpCenter = () => {
 
         <span>Contact us if you have any questions or problems</span>
         <textarea
-          className='helpcenter__textarea' // Changed class name to differentiate from the input field
+          className='helpcenter__textarea'
           value={message}
           onChange={handleMessageChange}
           placeholder="Type your message"
-        ></textarea> {/* Replaced the input field with a textarea element */}
+        ></textarea> 
 
         <button onClick={handleSendMessage}>Send a message</button>
 

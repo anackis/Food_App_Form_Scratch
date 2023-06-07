@@ -1,23 +1,20 @@
 
-
 import logo from "../../assets/Img/icons/logo.png";
 import like from "../../assets/Img/social/like.png"
 import dislike from "../../assets/Img/social/dislike.png"
 import favorite from "../../assets/Img/social/favorite-yellow.png"
-import favoriteActive from "../../assets/Img/social/favorite-active.png"
 
 import './card.scss';
 
 const Card = (props) => {
-  const { cardObject } = props;
-  
+  const { cardObject, imgFromForm } = props;
 
   return (
     <div className="card">
       <div className="card__wrapper">
         <div className="card__name">{cardObject.name ? cardObject.name : "Name"}</div>
         <div className="card__img">
-          <img src={cardObject.image ? cardObject.image : logo} alt="card-img" />
+          <img src={imgFromForm ? imgFromForm : logo} alt="card-img" />
         </div>
         <div className="card__creator">
           {cardObject.userImg ? <img src={cardObject.userImg} alt="userImg" /> : null}
@@ -29,23 +26,25 @@ const Card = (props) => {
         <div className="card__social">
           <div className="card__social_left">
             <div className="card__social-likes">
-              <button className="card__likes-button"><img src={like} alt="like"/></button>
-              {/* <div className="card__likes">Likes{cardObject.likes}</div> */}
+              <button className="card__likes-button">
+                <img src={like} alt="like"/>
+              </button>
             </div>
             <div className="card__social-dislikes">
-              <button className="card__likes-button"><img src={dislike} alt="dislike"/></button>
-              {/* <div className="card__dislikes">Dislikes{cardObject.dislikes}</div> */}
+              <button className="card__likes-button">
+                <img src={dislike} alt="dislike"/>
+              </button>
             </div>
           </div>
           <div className="card__social_right">
             <div className="card__social-favorite">
-              <button className="card__likes-button"><img src={favorite} alt="favorite"/></button>
-              {/* <div className="card__favorite">Favorite{cardObject.favorite}</div> */}
+              <button className="card__likes-button">
+                <img src={favorite} alt="favorite"/>
+              </button>
             </div>
           </div>
         </div>
         
-
         <div className="card__components">
           <h3>Components:</h3>
           {cardObject.components &&

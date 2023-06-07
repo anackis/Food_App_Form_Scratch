@@ -1,6 +1,4 @@
 
-
-
 import './coming.scss';
 
 const Coming = () => {

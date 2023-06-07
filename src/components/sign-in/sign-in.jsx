@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {Link, useNavigate} from 'react-router-dom';
 import { auth } from "../../utils/firebase/firebase";
@@ -10,41 +10,32 @@ import "./sign-in.scss";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [error, setError] = useState(null);
-
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        // console.log("// User is signed in");
-        setUser(user);
-      } else {
-        // console.log("// User is signed out");
-        setUser(null);
-      }
-    });
-
-    return unsubscribe;
-  }, []);
+  const navigate = useNavigate();
   
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    return auth.onAuthStateChanged(currentUser => {
+      if ((currentUser && !user) || (!currentUser && user)) {
+        setUser(currentUser);
+      }
+    });
+  }, [user]);
+  
+
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      .then((response) => {
+      .then(() => {
         navigate('/main');
       });
-
-      // console.log("User signed in successfully!");
     } catch (error) {
       setError("Wrong Email or Password");
-      // console.log(error.message);
-    }
-    };
+    } 
+  }, [email, password, navigate]);
 
     
   return (

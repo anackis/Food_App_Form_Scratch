@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { addObjectToCollection } from '../../utils/firebase/firebase';
 import imageCompression from 'browser-image-compression';
 
@@ -335,7 +335,7 @@ const Recipe = ({userDataDB}) => {
           <div className="recipe__divider"></div>
         </div>
       
-        <Card cardObject={cardObject} />
+        <Card cardObject={cardObject} imgFromForm={formData.image}/>
       </div>
       
     </section>

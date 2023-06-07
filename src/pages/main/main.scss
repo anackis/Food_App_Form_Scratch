@@ -3,7 +3,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // height: 100vh; 
   min-height: 100vh;
   padding: 10px 70px;
   padding-bottom: 0;
@@ -21,11 +20,9 @@
     border-top-right-radius: 25px;
   }
   &__wrapper {
-    
     min-height: 100vh;
     width: 1510px;
     padding: 30px 30px;
-    // padding-bottom: 0;
     display: flex;
     flex-direction: column;
   }

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect  } from 'react';
+import React from 'react';
 import { updateDbPlan } from '../../utils/firebase/firebase';
 import { deleteMealFromDbPlan } from '../../utils/firebase/firebase';
 import { getAuth } from "firebase/auth";
@@ -9,7 +9,6 @@ import like from "../../assets/Img/social/like.png"
 import dislike from "../../assets/Img/social/dislike.png"
 import favorite from "../../assets/Img/social/favorite-yellow.png"
 import favoriteActive from "../../assets/Img/social/favorite-active.png"
-
 import addButton from "../../assets/Img/recipe/add.png";
 import removeButton from "../../assets/Img/recipe/remove.png";
 

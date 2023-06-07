@@ -94,9 +94,7 @@ const Profile = ({userDataDB, uploadImg, handleNavItemClick, activeLink}) => {
       <div className="user-block__dashboard">
         <Dashboard userDataDB={userDataDB}/>
       </div>
-      
-      
-      
+
     </div>
   );
 };

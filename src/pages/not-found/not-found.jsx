@@ -1,10 +1,7 @@
 
 import React from "react";
-import {Link, useNavigate} from 'react-router-dom';
-
-import panda from "../../assets/Img/not-found/panda.png";
+import {Link} from 'react-router-dom';
 import umaru from "../../assets/Img/not-found/umaru.jpg";
-
 import "./not-found.scss";
 
 

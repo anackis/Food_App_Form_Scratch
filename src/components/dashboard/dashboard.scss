@@ -2,20 +2,13 @@
 
 
 .dashboard {
-  // height: 100%;
   position: relative;
-  // padding-top: 50px;
   &__wrapper {
     height: 93%;
     display: flex;
-    // justify-content: space-around;
     flex-wrap: wrap;
-    // margin-top: 50px;
-    // overflow-y: auto;
   }
   &__navbar {
-    // position: fixed;
-    // top: 0;
     display: flex;
     padding: 10px 5px;
     margin-top: -15px;
@@ -23,7 +16,6 @@
     height: 55px;
     border-radius: 15px;
     margin-bottom: 15px;
-    // margin-bottom: 10px;
     &__input {
       border-radius: 10px;
       border: none;
@@ -41,15 +33,9 @@
       justify-content: center;
       margin: 0 10px;
       width: 100px;
-      // height: 57px;
       border-radius: 10px;
       border: none;
-      // margin: 5px 0;
-      // padding-left: 15px;
       cursor: pointer;
-      // font-weight: 600;
-      // font-size: 16px;
-      // line-height: 22px;
       &_active {
         color: #fff;
         background-color: #F8B002;

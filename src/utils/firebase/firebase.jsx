@@ -9,16 +9,26 @@ import {
   updateDoc,
   collection, 
   getDocs,
-  addDoc
+  addDoc,
+  deleteDoc
 } from "firebase/firestore";
-import { deleteDoc } from "firebase/firestore";
-import { onSnapshot } from "firebase/firestore";
-
 import { firebaseConfig } from "./firebaseConfig";
+
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+
+// const getDocument = async (collectionName, id) => {
+//   const docRef = doc(db, collectionName, id);
+//   const docSnap = await getDoc(docRef);
+//   if (docSnap.exists()) {
+//     return docSnap.data();
+//   } else {
+//     throw new Error(`No such document in ${collectionName}!`);
+//   }
+// }
 
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation ) => {
@@ -28,7 +38,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
   const userSnapshot = await getDoc(userDocRef);
 
   if(!userSnapshot.exists()) {
-    const { displayName, email} = userAuth;
+    const { displayName, email } = userAuth;
     const createdAt = new Date();
 
     try {
@@ -59,21 +69,12 @@ export const getDb = async (uid) => {
   }
 }
 
+// export const getDb = (uid) => getDocument('users', uid).then(docSnap => docSnap.data());
+
 export const getCardsDb = async () => {
   const querySnapshot = await getDocs(collection(db, "cards"));
-  const cards = [];
-
-  querySnapshot.forEach((doc) => {
-    if (doc.exists()) {
-      const card = doc.data();
-      cards.push(card);
-    }
-  });
-
-  return cards;
+  return querySnapshot.docs.map(doc => doc.data());
 };
-
-
 
 export const updateDb = async (uid, update) => {
   const docRef = doc(db, "users", uid);
@@ -89,11 +90,8 @@ export const addObjectToCollection = async (collectionName, objectData) => {
     if (collectionSnapshot.size === 0) {
       await setDoc(collectionRef, {});
     }
-
     const docRef = await addDoc(collectionRef, objectData);
-    
     await updateDoc(docRef, { firebaseId: docRef.id });
-    
     console.log("Object added to collection successfully!", docRef.id);
   } catch (error) {
     console.error("Error adding object to collection: ", error);
@@ -110,8 +108,6 @@ export const getAllUsers = async () => {
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   return await createUserWithEmailAndPassword(auth, email, password);
 }
-
-
 
 export const updateLikesDislikes = async (cardId, userId, type) => {
   const docRef = doc(db, "cards", cardId);

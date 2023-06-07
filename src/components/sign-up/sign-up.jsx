@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate} from 'react-router-dom';
 import { getAllUsers } from "../../utils/firebase/firebase";
-import { collection, query, where, getDocs } from 'firebase/firestore';
 import { 
   createUserDocumentFromAuth, 
   createAuthUserWithEmailAndPassword
@@ -13,32 +12,32 @@ import userImg from "../../assets/Img/icons/user-icon.png";
 import "./sign-up.scss";
 
 
-const SignUp = () => {
+const validationSchema = Yup.object().shape({
+  displayName: Yup.string()
+    .required('Display Name is required')
+    .matches(/^[a-zA-Z]+\s[a-zA-Z]+$/, 'Please enter your first and last name'),
+  email: Yup.string()
+    .required('Email is required')
+    .email('Please enter a valid email address'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
+});
 
-  const navigate = useNavigate();
 
-  const validationSchema = Yup.object().shape({
-    displayName: Yup.string()
-      .required('Display Name is required')
-      .matches(/^[a-zA-Z]+\s[a-zA-Z]+$/, 'Please enter your first and last name'),
-    email: Yup.string()
-      .required('Email is required')
-      .email('Please enter a valid email address'),
-    password: Yup.string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters'),
-  });
-
-  function generateUniqueId() {
-    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let id = '#';
-    for (let i = 0; i < 4; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        id += characters.charAt(randomIndex);
-    }
-    return id;
+function generateUniqueId() {
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let id = '#';
+  for (let i = 0; i < 4; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      id += characters.charAt(randomIndex);
+  }
+  return id;
 }
 
+
+const SignUp = () => {
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
