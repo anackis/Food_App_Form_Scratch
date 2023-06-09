@@ -1,5 +1,4 @@
 
-
 import { useState, useEffect } from "react";
 import photo from "../../assets/Img/recipe/photo.png";
 import imageCompression from 'browser-image-compression';
@@ -8,16 +7,31 @@ import Dashboard from "../dashboard/dashboard";
 
 import './profile.scss';
 
+
+function formatTimestamp({ seconds, nanoseconds }) {
+  const totalMilliseconds = (seconds * 1000) + (nanoseconds / 1000000);
+  const date = new Date(totalMilliseconds);
+  return date.toLocaleDateString();
+};
+
+
 const Profile = ({userDataDB, uploadImg, handleNavItemClick, activeLink}) => {
 
   const [createdAt, setCreatedAt] = useState();
 
 
+  // useEffect(() => {
+  //   if (userDataDB) {
+  //     if (userDataDB.createdAt) {
+  //       formatTimestamp(userDataDB.createdAt);
+  //     } 
+  //   }
+  // }, [userDataDB]);
+
   useEffect(() => {
-    if (userDataDB) {
-      if (userDataDB.createdAt) {
-        formatTimestamp(userDataDB.createdAt);
-      } 
+    if (userDataDB && userDataDB.createdAt) {
+        const formattedDate = formatTimestamp(userDataDB.createdAt);
+        setCreatedAt(formattedDate);
     }
   }, [userDataDB]);
 
@@ -44,12 +58,12 @@ const Profile = ({userDataDB, uploadImg, handleNavItemClick, activeLink}) => {
     }
   };
 
-  function formatTimestamp({ seconds, nanoseconds }) {
-    const totalMilliseconds = (seconds * 1000) + (nanoseconds / 1000000);
-    const date = new Date(totalMilliseconds);
-    const formattedDate = date.toLocaleDateString();
-    setCreatedAt(formattedDate);
-  };
+  // function formatTimestamp({ seconds, nanoseconds }) {
+  //   const totalMilliseconds = (seconds * 1000) + (nanoseconds / 1000000);
+  //   const date = new Date(totalMilliseconds);
+  //   const formattedDate = date.toLocaleDateString();
+  //   setCreatedAt(formattedDate);
+  // };
 
   
 

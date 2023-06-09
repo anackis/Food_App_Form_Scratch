@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState} from 'react';
 import { auth, updateDb } from '../../utils/firebase/firebase';
 
 import './calculator.scss';

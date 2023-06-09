@@ -1,7 +1,6 @@
 
-import React from 'react';
-import { updateDbPlan } from '../../utils/firebase/firebase';
-import { deleteMealFromDbPlan } from '../../utils/firebase/firebase';
+import React, { memo } from 'react';
+import { updateDbPlan, deleteMealFromDbPlan } from '../../utils/firebase/firebase';
 import { getAuth } from "firebase/auth";
 
 import logo from "../../assets/Img/icons/logo.png";
@@ -147,4 +146,4 @@ const CardMini = (props) => {
   );
 };
 
-export default CardMini;
+export default memo(CardMini);

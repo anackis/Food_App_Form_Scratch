@@ -13,10 +13,7 @@ const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Sat
 
 const Plan = ({userDataDB}) => {
   const { diet } = userDataDB;
-  
   const [activeDay, setActiveDay] = useState('Monday');
-  // const [cards, setCards] = useState([]);
-
   const [totalCaloriesOnDay, setTotalCaloriesOnDay] = useState({
     "Monday": 0,
     "Tuesday": 0,
@@ -26,21 +23,6 @@ const Plan = ({userDataDB}) => {
     "Saturday": 0,
     "Sunday": 0
   });
-
-  const handleClick = (day) => {
-    setActiveDay(day);
-  };
- 
-
-  // useEffect(() => {
-  //   const fetchCards = async () => {
-  //     const retrievedCards = await getCardsDb();
-  //     retrievedCards.sort((a, b) => b.createdAt - a.createdAt);
-  //     setCards(retrievedCards);
-  //   };
-  
-  //   fetchCards();
-  // }, []);
 
 
   useEffect(() => {
@@ -54,6 +36,7 @@ const Plan = ({userDataDB}) => {
   
     const userId = currentUser.uid;
     const dietRef = doc(db, 'users', userId);
+    
     const unsubscribe = onSnapshot(dietRef, (docSnap) => {
       if (docSnap.exists()) {
         const updatedDiet = docSnap.data().diet;
@@ -70,8 +53,13 @@ const Plan = ({userDataDB}) => {
     return () => unsubscribe();
   }, [userDataDB]);
 
-  const activeDayMeals = diet?.find(dayMeals => dayMeals.day === activeDay)?.meals || [];
 
+  const handleClick = (day) => {
+    setActiveDay(day);
+  };
+
+
+  const activeDayMeals = diet?.find(dayMeals => dayMeals.day === activeDay)?.meals || [];
   const activeDayMealComponents = activeDayMeals.map((meal, index) => (
     <CardMini 
       key={index} 
@@ -96,7 +84,6 @@ const Plan = ({userDataDB}) => {
   
     dietData.forEach(dayMeals => {
       const day = dayMeals.day;
-      // console.log(dayMeals.meals);
       const meals = dayMeals.meals || [];
       const dayCalories = meals.reduce((total, meal) => total + meal.totalKcal, 0);
       calories[day] = dayCalories;
@@ -107,7 +94,6 @@ const Plan = ({userDataDB}) => {
 
 return (
     <section className="plan">
-
       <div className="plan__header">
         {daysOfWeek.map((day, index) => (
           <div
@@ -129,7 +115,6 @@ return (
       </div>
 
       <Dashboard userDataDB={userDataDB} context="context1" activeDay={activeDay}/>
-
     </section>
   );
 };

@@ -1,8 +1,6 @@
 
 import { useState, useEffect, useCallback  } from "react";
 import { auth, getDb, updateDb, db } from "../../utils/firebase/firebase";
-
-
 import {
   collection,
   doc,

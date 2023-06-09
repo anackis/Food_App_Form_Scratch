@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import './helpcenter.scss';
 
@@ -6,8 +7,8 @@ const HelpCenter = () => {
   const [isMessageSent, setIsMessageSent] = useState(false);
 
   const handleMessageChange = (e) => {
-    setIsMessageSent(false);
     setMessage(e.target.value);
+    setIsMessageSent(false);
   };
 
   const handleSendMessage = () => {

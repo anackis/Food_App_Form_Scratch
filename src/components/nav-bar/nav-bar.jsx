@@ -1,10 +1,27 @@
+
 import React, { useState, useEffect } from 'react';
-
 import SignOut from '../sign-out/sign-out';
-
 import logoImg from "../../assets/Img/icons/logo.png";
+import dashboardIcon from "../../assets/Img/nav-bar/dashboard.png";
+import planIcon from "../../assets/Img/nav-bar/plan.png";
+import userIcon from "../../assets/Img/nav-bar/user.png";
+import recipeIcon from "../../assets/Img/nav-bar/recipe.png";
+import calculatorIcon from "../../assets/Img/nav-bar/calculator.png";
+import helpIcon from "../../assets/Img/nav-bar/help.png";
 
 import "./nav-bar.scss";
+
+
+const navItems = [
+  { name: 'Dashboard', icon: dashboardIcon  },
+  { name: 'Food Plan', icon: planIcon  },
+  { name: 'Profile', icon: userIcon  },
+  { name: 'Recipe', icon: recipeIcon  },
+  { name: 'Calculator', icon: calculatorIcon  },
+  { divider: true },
+  { name: 'Help Center', icon: helpIcon  },
+];
+
 
 const NavBar = ({activeLink, handleNavItemClick }) => {
   const [hamburgerSwitch, setHamburgerSwitch] = useState(false);
@@ -32,16 +49,7 @@ const NavBar = ({activeLink, handleNavItemClick }) => {
     localStorage.setItem("activeLink", activeLink);
   }, [activeLink]);
 
-  const navItems = [
-    { name: 'Dashboard'},
-    { name: 'Food Plan' },
-    { name: 'Profile' },
-    { name: 'Recipe'},
-    { name: 'Calculator' },
-    { divider: true },
-    { name: 'Help Center' },
-  ];
-
+ 
   return (
     <section className="navbar">
       <div className="navbar__logo navbar__logo_mobile">
@@ -66,6 +74,7 @@ const NavBar = ({activeLink, handleNavItemClick }) => {
                   className={`navbar__item ${activeLink === item.name ? 'navbar__item-active' : ''}`}
                   onClick={() => handleNavItemClick(item.name)}
                 >
+                  {item.icon && <img className='navbar__icon' src={item.icon} alt={`${item.name}-icon`} />}
                   <span>{item.name}</span>
                 </div>
               )}

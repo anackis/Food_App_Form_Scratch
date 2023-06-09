@@ -1,57 +1,56 @@
 
-import React, { useState, useEffect } from 'react';
-import { getCardsDb } from '../../utils/firebase/firebase';
+import React, { useState, useEffect, useMemo } from 'react';
 import CardMini from '../card-mini/card-mini';
-import { updateLikesDislikes, getCardById, updateFavorites } from '../../utils/firebase/firebase';
-import { deleteCardFromDb } from '../../utils/firebase/firebase';
+import { 
+  updateLikesDislikes, 
+  getCardById, 
+  updateFavorites, 
+  getCardsDb, 
+  deleteCardFromDb 
+} from '../../utils/firebase/firebase';
 
 import './dashboard.scss';
 
+const sortFunctions = {
+  likes: (a, b) => b.likes - a.likes,
+  dislikes: (a, b) => b.dislikes - a.dislikes,
+  createdAt: (a, b) => b.createdAt - a.createdAt,
+};
 
 const Dashboard = ({userDataDB, context, activeDay, placement}) => {
   const [cards, setCards] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('createdAt');
 
-
   useEffect(() => {
     const fetchCards = async () => {
       const retrievedCards = await getCardsDb();
-
-      retrievedCards.sort((a, b) => b.createdAt - a.createdAt);
+      retrievedCards.sort(sortFunctions['createdAt']);
       setCards(retrievedCards);
     };
 
     fetchCards();
   }, []);
 
-
-  const handleLikeDislikeClick = async (cardId, userId, type) => {
-    await updateLikesDislikes(cardId, userId, type);
+  const updateCardsState = async (cardId) => {
     const updatedCard = await getCardById(cardId);
-
     const updatedCards = cards.map((card) => {
       if (card.firebaseId === cardId) {
         return updatedCard;
       }
       return card;
     });
-
     setCards(updatedCards);
+  }
+
+  const handleLikeDislikeClick = async (cardId, userId, type) => {
+    await updateLikesDislikes(cardId, userId, type);
+    updateCardsState(cardId);
   };
 
   const handleFavoriteClick = async (cardId, userId) => {
     await updateFavorites(cardId, userId);
-    const updatedCard = await getCardById(cardId);
-  
-    const updatedCards = cards.map((card) => {
-      if (card.firebaseId === cardId) {
-        return updatedCard;
-      }
-      return card;
-    });
-  
-    setCards(updatedCards);
+    updateCardsState(cardId);
   };
 
   const handleSortClick = (type) => {
@@ -62,37 +61,34 @@ const Dashboard = ({userDataDB, context, activeDay, placement}) => {
     setSearchTerm(event.target.value);
   };  
 
-  const filteredCards = cards
-    .filter(card => {
-      const lowerCaseSearchTerm = searchTerm.toLowerCase();
-      return (
-        card.userName.toLowerCase().includes(lowerCaseSearchTerm) ||
-        card.id.toLowerCase().includes(lowerCaseSearchTerm) ||
-        card.name.toLowerCase().includes(lowerCaseSearchTerm)
-      );
-    })
-  
-  let filteredAndSortedCards = filteredCards;
+  const filteredCards = useMemo(() => cards.filter(card => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    return (
+      card.userName.toLowerCase().includes(lowerCaseSearchTerm) ||
+      card.id.toLowerCase().includes(lowerCaseSearchTerm) ||
+      card.name.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+  }), [cards, searchTerm]);
 
-  if (sortOrder === 'likes') {
-    filteredAndSortedCards.sort((a, b) => b.likes - a.likes);
-  } else if (sortOrder === 'dislikes') {
-    filteredAndSortedCards.sort((a, b) => b.dislikes - a.dislikes);
-  } else if (sortOrder === 'createdAt') {
-    filteredAndSortedCards.sort((a, b) => b.createdAt - a.createdAt);
-  } else if (sortOrder === 'likedList') {
-    filteredAndSortedCards = filteredAndSortedCards.filter((card) => card.likedList && card.likedList.includes(userDataDB.id));
-  } else if (sortOrder === 'dislikedList') {
-    filteredAndSortedCards = filteredAndSortedCards.filter((card) => card.dislikedList && card.dislikedList.includes(userDataDB.id));
-  } else if (sortOrder === 'foviritedList') {
-    filteredAndSortedCards = filteredAndSortedCards.filter((card) => card.favoriteList && card.favoriteList.includes(userDataDB.id));
-  } else if (sortOrder === 'createdByMe') {
-    filteredAndSortedCards = filteredAndSortedCards.filter((card) => card.userId === userDataDB.id);
-  }
+  const filteredAndSortedCards = useMemo(() => {
+    let result = [...filteredCards];
+
+    if (sortOrder in sortFunctions) {
+      result.sort(sortFunctions[sortOrder]);
+    } else if (sortOrder === 'likedList') {
+      result = result.filter((card) => card.likedList && card.likedList.includes(userDataDB.id));
+    } else if (sortOrder === 'dislikedList') {
+      result = result.filter((card) => card.dislikedList && card.dislikedList.includes(userDataDB.id));
+    } else if (sortOrder === 'foviritedList') {
+      result = result.filter((card) => card.favoriteList && card.favoriteList.includes(userDataDB.id));
+    } else if (sortOrder === 'createdByMe') {
+      result = result.filter((card) => card.userId === userDataDB.id);
+    }
+    return result;
+  }, [filteredCards, sortOrder, userDataDB]);
 
   const handleDeleteClick = async (cardId) => {
     await deleteCardFromDb(cardId);
-  
     const updatedCards = cards.filter((card) => card.firebaseId !== cardId);
     setCards(updatedCards);
   };

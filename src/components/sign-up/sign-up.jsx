@@ -3,12 +3,13 @@ import React from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate} from 'react-router-dom';
-import { getAllUsers } from "../../utils/firebase/firebase";
 import { 
+  getAllUsers,
   createUserDocumentFromAuth, 
   createAuthUserWithEmailAndPassword
 } from "../../utils/firebase/firebase";
 import userImg from "../../assets/Img/icons/user-icon.png";
+
 import "./sign-up.scss";
 
 

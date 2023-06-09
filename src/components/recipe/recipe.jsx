@@ -2,9 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { addObjectToCollection } from '../../utils/firebase/firebase';
 import imageCompression from 'browser-image-compression';
-
 import Card from '../card/card';
-
 import logo from "../../assets/Img/icons/logo.png";
 import uploadImg from "../../assets/Img/recipe/photo.png";
 import addButton from "../../assets/Img/recipe/add.png";

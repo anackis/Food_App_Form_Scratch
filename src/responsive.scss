@@ -1,0 +1,35 @@
+
+@media only screen and (max-width: 1800px) {
+
+  .main__wrapper {
+    width: unset !important;
+  }
+  .navbar {
+    width: 300px !important;
+  }
+
+}
+
+
+@media only screen and (max-width: 1600px) {
+
+  .main {
+    padding: 10px !important;
+    &__container {
+      width: 100% !important;
+    }
+    &__wrapper {
+      width: 100% !important;
+      
+    }
+  }
+  .dashboard {
+    &__wrapper {
+      justify-content: space-around !important;
+    }
+  }
+  .navbar {
+    width: 370px !important;
+  }
+
+}
