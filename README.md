@@ -1,5 +1,6 @@
 # Food_App_Form_Scratch
-Food App From Scratch
+Food App From Scratch created with React and Firebase
+
 
 ![localhost_3001_](https://github.com/anackis/Food_App_Form_Scratch/assets/61510461/6f4085e7-fc5c-4b50-9c6c-bbc35b6e3f63)
 
