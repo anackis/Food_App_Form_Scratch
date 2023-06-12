@@ -21,6 +21,7 @@ const Dashboard = ({userDataDB, context, activeDay, placement}) => {
   const [cards, setCards] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('createdAt');
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -93,41 +94,79 @@ const Dashboard = ({userDataDB, context, activeDay, placement}) => {
     setCards(updatedCards);
   };
 
+  const handleFiltersClick = () => {
+    setShowFilters(!showFilters);
+  };
+
 
   return (
     <section className="dashboard">
 
       <div className="dashboard__navbar">
-       
+
         <input
-          type="text"
-          className='dashboard__navbar__input'
-          placeholder="Search"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
+            type="text"
+            className='dashboard__navbar__input'
+            placeholder="Search"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+
+        {/* <div className="dashboard__dropdown-menu__wrapper"> */}
+          <button className='mobile-buttons' onClick={handleFiltersClick}>
+            Filters
+          </button>
+          {showFilters && (
+            <div className="dashboard__dropdown-menu">
+              <button className={sortOrder === 'createdAt' ? 
+                'dashboard__navbar__button_active dashboard__navbar__button mobile-buttons' : 
+                'dashboard__navbar__button mobile-buttons'} onClick={() => handleSortClick('createdAt')}>
+                Sort by Date
+              </button>
+              <button className={sortOrder === 'likes' ? 
+              'dashboard__navbar__button_active dashboard__navbar__button mobile-buttons' : 
+              'dashboard__navbar__button mobile-buttons'} onClick={() => handleSortClick('likes')}>Sort by Likes</button>
+              <button className={sortOrder === 'dislikes' ? 
+              'dashboard__navbar__button_active dashboard__navbar__button mobile-buttons' : 
+              'dashboard__navbar__button mobile-buttons'} onClick={() => handleSortClick('dislikes')}>Sort by Dislikes</button>
+              <button className={sortOrder === 'likedList' ? 
+              'dashboard__navbar__button_active dashboard__navbar__button mobile-buttons' : 
+              'dashboard__navbar__button mobile-buttons'} onClick={() => handleSortClick('likedList')}>Liked</button>
+              <button className={sortOrder === 'dislikedList' ? 
+              'dashboard__navbar__button_active dashboard__navbar__button mobile-buttons' : 
+              'dashboard__navbar__button mobile-buttons'} onClick={() => handleSortClick('dislikedList')}>Disliked</button>
+              <button  className={sortOrder === 'foviritedList' ? 
+              'dashboard__navbar__button_active dashboard__navbar__button mobile-buttons' : 
+              'dashboard__navbar__button mobile-buttons'} onClick={() => handleSortClick('foviritedList')}>Favorite</button>
+            </div>
+          )}
+        {/* </div> */}
+        
+       
+        
+       
 
         <button 
           onClick={() => handleSortClick('createdAt')}
           className={sortOrder === 'createdAt' ? 
-            'dashboard__navbar__button_active dashboard__navbar__button' : 
-            'dashboard__navbar__button'}
+            'dashboard__navbar__button_active dashboard__navbar__button pc-buttons' : 
+            'dashboard__navbar__button pc-buttons'}
         >
           Sort by Date
         </button>
         <button 
           onClick={() => handleSortClick('likes')}
           className={sortOrder === 'likes' ? 
-            'dashboard__navbar__button_active dashboard__navbar__button' : 
-            'dashboard__navbar__button'}
+            'dashboard__navbar__button_active dashboard__navbar__button pc-buttons' : 
+            'dashboard__navbar__button pc-buttons'}
         >
           Sort by Likes
         </button>
         <button 
           onClick={() => handleSortClick('dislikes')}
           className={sortOrder === 'dislikes' ? 
-            'dashboard__navbar__button_active dashboard__navbar__button' : 
-            'dashboard__navbar__button'}
+            'dashboard__navbar__button_active dashboard__navbar__button pc-buttons' : 
+            'dashboard__navbar__button pc-buttons'}
         >
           Sort by Dislikes
         </button>
@@ -135,8 +174,8 @@ const Dashboard = ({userDataDB, context, activeDay, placement}) => {
         <button 
           onClick={() => handleSortClick('likedList')}
           className={sortOrder === 'likedList' ? 
-            'dashboard__navbar__button_active dashboard__navbar__button ml' : 
-            'dashboard__navbar__button ml'}
+            'dashboard__navbar__button_active dashboard__navbar__button ml pc-buttons' : 
+            'dashboard__navbar__button ml pc-buttons'}
         >
           Liked
         </button>
@@ -144,8 +183,8 @@ const Dashboard = ({userDataDB, context, activeDay, placement}) => {
         <button 
           onClick={() => handleSortClick('dislikedList')}
           className={sortOrder === 'dislikedList' ? 
-            'dashboard__navbar__button_active dashboard__navbar__button' : 
-            'dashboard__navbar__button'}
+            'dashboard__navbar__button_active dashboard__navbar__button pc-buttons' : 
+            'dashboard__navbar__button pc-buttons'}
         >
           Disliked
         </button>
@@ -153,8 +192,8 @@ const Dashboard = ({userDataDB, context, activeDay, placement}) => {
         <button 
           onClick={() => handleSortClick('foviritedList')}
           className={sortOrder === 'foviritedList' ? 
-            'dashboard__navbar__button_active dashboard__navbar__button' : 
-            'dashboard__navbar__button'}
+            'dashboard__navbar__button_active dashboard__navbar__button pc-buttons' : 
+            'dashboard__navbar__button pc-buttons'}
         >
           Favorite
         </button>

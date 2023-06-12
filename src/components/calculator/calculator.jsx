@@ -189,6 +189,8 @@ const Calculator = () => {
           
           <button className="calculating__save" onClick={saveKcal}>Save your daily kcal</button>
         </div>
+
+        <button className="calculating__save_mobile" onClick={saveKcal}>Save your daily kcal</button>
       </div>
     </section>
   );

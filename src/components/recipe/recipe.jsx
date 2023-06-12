@@ -224,6 +224,18 @@ const Recipe = ({userDataDB}) => {
                   accept="image/*"
                 />
             </label>
+            <label htmlFor="image" className="recipe__fileupload recipe__fileupload_mobile">
+              <img src={uploadImg} alt="uploadImg" />
+              <input
+                  type="file"
+                  id="image"
+                  className='recipe__img-input'
+                  name="image"
+                  ref={imageInputRef}
+                  onChange={handleImgUploadChange}
+                  accept="image/*"
+                />
+            </label>
           </div>
           
 

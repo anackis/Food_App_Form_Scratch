@@ -21,7 +21,7 @@ const SignOut = () => {
 
   return (    
     <div className="sign-out">
-      <button onClick={handleSubmit}>
+      <button className='sign-out__button' onClick={handleSubmit}>
         <img src={logout} alt="logout" />
       </button>
     </div>

@@ -27,6 +27,9 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    &_mobile {
+      display: none;
+    }
   }
   &__img-input {
     border-bottom: unset !important;
@@ -88,6 +91,7 @@
     img {
       height: 100%;
     }
+    
   }
   &__submit-button {
     height: 50px;
@@ -97,10 +101,12 @@
     border: none;
     cursor: pointer;
     position: absolute;
-    left: 30px;
+    left: 5%;
     bottom: 30px;
     background-color: #F8B002;
     color: #fff;
+    // margin: 0 auto;
+    
   }
   &__wrapper_right-top {
     height: 85px;

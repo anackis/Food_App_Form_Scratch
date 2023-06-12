@@ -102,13 +102,15 @@ return (
             onClick={() => handleClick(day)}
           >
             <div className="plan__header__item-title">{day}</div>
-            <div className="plan__header__item-dailynorm">Daily norm</div>
+            <div className="plan__header__item-title plan__header__item-title_mobile">{day.slice(0, 3)}</div>
+            <div className="plan__header__item-dailynorm plan__header__item-dailynorm_mobile-hiden">Daily norm</div>
             <div className="plan__header__item-fill">{totalCaloriesOnDay[day]} / {userDataDB.kcal ? userDataDB.kcal : "-"}</div>
           </div>
         ))}
       </div>
 
-      <div className="plan__item-content">
+      {/* <div className="plan__item-content"> */}
+      <div className={`plan__item-content plan__item-content_${activeDay.toLowerCase()}`}>
         <div className="plan__item-content__wrapper">
           {activeDayMealComponents}
         </div>

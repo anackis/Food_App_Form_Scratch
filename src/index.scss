@@ -39,21 +39,30 @@ p {
   padding: 0;
 }
 
+.hiden {
+  display: none !important;
+}
+.show {
+  display: flex !important;
+}
 
 /* Styling the scrollbar */
 ::-webkit-scrollbar {
   width: 10px; /* Adjust the width of the scrollbar */
+  display: none;
 }
 
 /* Styling the thumb (draggable portion) */
 ::-webkit-scrollbar-thumb {
   background-color: #545454; /* Color of the thumb */
   border-radius: 5px; /* Rounded corners of the thumb */
+  display: none;
 }
 
 /* Styling the track (background) */
 ::-webkit-scrollbar-track {
   background-color: #2C2C2C; /* Color of the track */
+  display: none;
 }
 
 /* Styling the buttons on the scrollbar */
@@ -65,4 +74,5 @@ p {
 /* Styling the corner where horizontal and vertical scrollbars meet */
 ::-webkit-scrollbar-corner {
   background-color: #f1f1f1; /* Color of the corner */
+  display: none;
 }

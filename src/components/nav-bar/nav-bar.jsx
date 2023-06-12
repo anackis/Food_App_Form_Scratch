@@ -8,7 +8,7 @@ import userIcon from "../../assets/Img/nav-bar/user.png";
 import recipeIcon from "../../assets/Img/nav-bar/recipe.png";
 import calculatorIcon from "../../assets/Img/nav-bar/calculator.png";
 import helpIcon from "../../assets/Img/nav-bar/help.png";
-
+import hamburger from "../../assets/Img/icons/hamburger.png";
 import "./nav-bar.scss";
 
 
@@ -28,7 +28,7 @@ const NavBar = ({activeLink, handleNavItemClick }) => {
 
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth > 1250) {
+      if (window.innerWidth > 991) {
         setHamburgerSwitch(false);
       } else {
         setHamburgerSwitch(true);
@@ -49,15 +49,30 @@ const NavBar = ({activeLink, handleNavItemClick }) => {
     localStorage.setItem("activeLink", activeLink);
   }, [activeLink]);
 
+  const handleHamburgerClick = () => {
+    setHamburgerSwitch(!hamburgerSwitch);
+  }
+
  
   return (
     <section className="navbar">
+
+      {/* <div className="navbar__logo navbar__logo_mobile">
+        <img className="navbar__logo-fire" src={fire} alt="fire" />
+        <span className="navbar__logo-logo">Free Bank</span>
+      </div> */}
+
       <div className="navbar__logo navbar__logo_mobile">
         <img src={logoImg} alt="logo-img" />
         <span className="navbar__logo-logo">Food App</span>
       </div>
-      <button className='hamburger' />
-      <div className="navbar__wrapper">
+
+      <button className='hamburger' onClick={() => handleHamburgerClick()}>
+        <img src={hamburger} alt="hamburger" />
+      </button>
+
+
+      <div className={hamburgerSwitch ? "navbar__wrapper hiden" : "navbar__wrapper"}>
         <div className="navbar__logo-wrapper">
           <img src={logoImg} alt="logo-img" />
           <div className="navbar__logo">
