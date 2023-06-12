@@ -5,8 +5,6 @@ Food App From Scratch
 
 ![localhost_3001_main (3)](https://github.com/anackis/Food_App_Form_Scratch/assets/61510461/7317e9b7-dab2-4305-b483-a97b574e477a)
 
-![localhost_3001_main (6)](https://github.com/anackis/Food_App_Form_Scratch/assets/61510461/2038a306-ccfd-4e8f-9140-4b535f5da82a)
-
 ![localhost_3001_main (5)](https://github.com/anackis/Food_App_Form_Scratch/assets/61510461/86897f72-eb93-4d9a-9055-78e0a3b9b090)
 
 ![localhost_3001_main (6)](https://github.com/anackis/Food_App_Form_Scratch/assets/61510461/99c0d6c3-1931-4fd2-a686-df957d411be4)
